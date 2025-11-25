@@ -6,6 +6,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -29,3 +30,4 @@ Route::resource('suppliers', SupplierController::class);
 Route::resource('products', ProductController::class);
 Route::resource('purchases', PurchaseController::class);
 Route::resource('sales', SaleController::class);
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
