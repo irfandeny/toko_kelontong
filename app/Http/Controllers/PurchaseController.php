@@ -109,8 +109,22 @@ class PurchaseController extends Controller
         // OPSIONAL: mengizinkan edit detail
         $suppliers = Supplier::orderBy('name')->get();
         $products  = Product::with('category')->orderBy('name')->get();
-        $purchase->load('purchaseDetails.product');
-        return view('purchases.edit', compact('purchase', 'suppliers', 'products'));
+        $productsData = $products->map(function ($p) {
+            return [
+                'id' => $p->id,
+                'name' => $p->name . ' (' . ($p->category->name ?? '-') . ')',
+                'default_price' => (float) $p->purchase_price,
+            ];
+        });
+        $purchase->load('purchaseDetails.product.category');
+        $existingDetails = $purchase->purchaseDetails->map(function ($d) {
+            return [
+                'product_id' => $d->product_id,
+                'price' => (float)$d->price,
+                'quantity' => (int)$d->quantity,
+            ];
+        });
+        return view('purchases.edit', compact('purchase', 'suppliers', 'products', 'productsData', 'existingDetails'));
     }
 
     public function update(Request $request, Purchase $purchase)
