@@ -63,24 +63,57 @@
     </div>
 
     <style>
-        .bg-gradient-primary { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .bg-gradient-success { background: linear-gradient(135deg, #34d399, #10b981); }
-        .bg-gradient-warning { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-        .bg-gradient-danger { background: linear-gradient(135deg, #f87171, #ef4444); }
-        .bg-gradient-info { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+    .bg-gradient-primary { background: linear-gradient(135deg, #667eea, #f87171); }
+    .bg-gradient-success { background: linear-gradient(135deg, #667eea, #f87171); }
+    .bg-gradient-warning { background: linear-gradient(135deg, #667eea, #f87171); }
+    .bg-gradient-danger { background: linear-gradient(135deg, #667eea, #f87171); }
+    .bg-gradient-info { background: linear-gradient(135deg, #667eea, #f87171); }
 
-        .dashboard-card {
-            transition: all 0.3s ease;
-            border: none;
-        }
+    .dashboard-card {
+        transition: all 0.3s ease;
+        border: none;
+    }
 
-        .dashboard-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-        }
+    .dashboard-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    }
 
-        a.text-decoration-none:hover .dashboard-card {
-            opacity: 0.95;
-        }
-    </style>
+    a.text-decoration-none:hover .dashboard-card {
+        opacity: 0.95;
+    }
+
+    /* Custom warna tombol Quick Actions */
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white !important;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white !important;
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white !important;
+    }
+
+    .btn-info {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white !important;
+    }
+
+    /* Hover effect untuk tombol */
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+</style>
+
 @endsection
