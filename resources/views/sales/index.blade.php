@@ -35,6 +35,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>ID</th>
                     <th>Invoice</th>
                     <th>Tanggal</th>
                     <th>Pelanggan</th>
@@ -48,6 +49,7 @@
                 @forelse($sales as $sale)
                 <tr>
                     <td>{{ $loop->iteration + ($sales->currentPage()-1) * $sales->perPage() }}</td>
+                    <td>{{ $sale->id }}</td>
                     <td><strong>{{ $sale->invoice_number }}</strong></td>
                     <td>{{ $sale->sale_date }}</td>
                     <td>{{ $sale->customer_name ?? '-' }}</td>
@@ -58,10 +60,9 @@
                         <a href="{{ route('sales.show', $sale) }}" class="btn btn-sm btn-info">
                             <i class="bi bi-eye"></i>
                         </a>
-                        <form action="{{ route('sales.destroy', $sale) }}" method="POST" class="d-inline">
+                        <form action="{{ route('sales.destroy', $sale) }}" method="POST" class="d-inline" data-confirm="Yakin ingin menghapus transaksi invoice '{{ $sale->invoice_number }}'?">
                             @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"
-                                onclick="return confirm('Hapus transaksi ini?')">
+                            <button type="submit" class="btn btn-sm btn-danger">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
