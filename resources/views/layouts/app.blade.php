@@ -45,16 +45,16 @@
                     <a class="nav-link {{ request()->is('categories*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
                         <i class="bi bi-tag"></i> Kategori
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->is('suppliers*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
                         <i class="bi bi-people"></i> Supplier
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->is('products*') ? 'active' : '' }}" href="{{ route('products.index') }}">
                         <i class="bi bi-box-seam"></i> Barang
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->is('purchases*') ? 'active' : '' }}" href="{{ route('purchases.index') }}">
                         <i class="bi bi-cart-plus"></i> Pembelian Stok
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->is('sales*') ? 'active' : '' }}" href="{{ route('sales.index') }}">
                         <i class="bi bi-cash-stack"></i> Penjualan
                     </a>
                 </nav>

@@ -23,7 +23,8 @@ class PurchaseController extends Controller
             $query->where('supplier_id', $supplierId);
         }
 
-        $purchases  = $query->latest()->paginate(10)->withQueryString();
+        $purchases  = $query->latest()->paginate(10);
+        $purchases->appends($request->all());
         $suppliers  = Supplier::orderBy('name')->get();
 
         return view('purchases.index', compact('purchases', 'suppliers'));
@@ -33,9 +34,16 @@ class PurchaseController extends Controller
     {
         $suppliers = Supplier::orderBy('name')->get();
         $products  = Product::with('category')->orderBy('name')->get();
+        $productsData = $products->map(function ($p) {
+            return [
+                'id' => $p->id,
+                'name' => $p->name . ' (' . ($p->category->name ?? '-') . ')',
+                'default_price' => (float) $p->purchase_price,
+            ];
+        });
         $nextInvoice = $this->generateInvoiceNumber();
 
-        return view('purchases.create', compact('suppliers', 'products', 'nextInvoice'));
+        return view('purchases.create', compact('suppliers', 'products', 'productsData', 'nextInvoice'));
     }
 
     public function store(Request $request)

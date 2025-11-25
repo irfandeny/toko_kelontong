@@ -8,10 +8,24 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->get();
-        return view('products.index', compact('products'));
+        $query = Product::with('category');
+
+        // Filter search
+        if ($search = $request->input('q')) {
+            $query->where('name', 'like', "%$search%");
+        }
+
+        // Filter kategori
+        if ($cat = $request->input('category')) {
+            $query->where('category_id', $cat);
+        }
+
+        $products = $query->latest()->paginate(10)->appends($request->query());
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.index', compact('products', 'categories'));
     }
 
     public function create()
