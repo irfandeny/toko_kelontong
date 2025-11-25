@@ -12,6 +12,13 @@
     <a href="{{ route('purchases.edit', $purchase) }}" class="btn btn-warning">
         <i class="bi bi-pencil"></i> Edit
     </a>
+    <form action="{{ route('purchases.destroy', $purchase) }}" method="POST" class="d-inline" data-confirm="Yakin ingin menghapus pembelian invoice '{{ $purchase->invoice_number }}'?">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Hapus
+        </button>
+    </form>
 </div>
 
 <div class="card mb-4">

@@ -9,6 +9,13 @@
     <a href="{{ route('sales.index') }}" class="btn btn-secondary">
         <i class="bi bi-arrow-left"></i> Kembali
     </a>
+    <form action="{{ route('sales.destroy', $sale) }}" method="POST" class="d-inline" data-confirm="Yakin ingin menghapus transaksi invoice '{{ $sale->invoice_number }}'?">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Hapus
+        </button>
+    </form>
 </div>
 
 <div class="card mb-4">

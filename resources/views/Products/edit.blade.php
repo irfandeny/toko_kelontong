@@ -72,7 +72,7 @@
 
                             @if($product->image)
                                 <div class="mt-2">
-                                    <img src="{{ asset('storage/' . $product->image) }}" width="100" class="rounded">
+                                    <img src="{{ Storage::url($product->image) }}" width="100" class="rounded">
                                     <p class="text-muted mb-0">Foto sekarang</p>
                                 </div>
                             @endif

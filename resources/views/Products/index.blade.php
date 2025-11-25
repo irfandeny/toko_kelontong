@@ -45,6 +45,7 @@
             <thead>
                 <tr>
                     <th width="5%">No</th>
+                    <th>ID</th>
                     <th>Foto</th>
                     <th>Nama</th>
                     <th>Kategori</th>
@@ -59,9 +60,10 @@
                 @forelse($products as $product)
                 <tr>
                     <td>{{ $loop->iteration + ($products->currentPage()-1) * $products->perPage() }}</td>
+                    <td>{{ $product->id }}</td>
                     <td>
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="50" class="rounded">
+                            <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" width="50" class="rounded">
                         @else
                             <span class="text-muted">-</span>
                         @endif
@@ -76,12 +78,10 @@
                         <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning">
                             <i class="bi bi-pencil"></i>
                         </a>
-                        <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline">
+                        <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline" data-confirm="Yakin ingin menghapus barang '{{ $product->name }}'?">
                             @csrf
                             @method('DELETE')
-                            <button type="submit"
-                                onclick="return confirm('Hapus barang ini?')"
-                                class="btn btn-sm btn-danger">
+                            <button type="submit" class="btn btn-sm btn-danger">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
