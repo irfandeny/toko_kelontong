@@ -90,11 +90,7 @@
 
 @push('scripts')
 <script>
-const productsData = @json($products->map(fn($p) => [
-    'id' => $p->id,
-    'name' => $p->name . ' (' . ($p->category->name ?? '-') . ')',
-    'default_price' => $p->purchase_price,
-]));
+const productsData = @json($productsData);
 
 function formatNumber(num) {
     return num.toLocaleString('id-ID');
@@ -129,7 +125,7 @@ document.getElementById('addRowBtn').addEventListener('click', () => {
     const tr = document.createElement('tr');
 
     const productOptions = productsData.map(p =>
-        <option value="${p.id}" data-default="${p.default_price}">${p.name}</option>
+        `<option value="${p.id}" data-default="${p.default_price}">${p.name}</option>`
     ).join('');
 
     tr.innerHTML = `

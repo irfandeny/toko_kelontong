@@ -31,8 +31,17 @@ class SaleController extends Controller
     public function create()
     {
         $products = Product::with('category')->orderBy('name')->get();
+        $productsData = $products->map(function ($p) {
+            return [
+                'id' => $p->id,
+                'name' => $p->name . ' (' . ($p->category->name ?? '-') . ')',
+                'price' => (float) $p->selling_price,
+                'stock' => (int) $p->stock,
+            ];
+        });
+
         $nextInvoice = $this->generateInvoiceNumber();
-        return view('sales.create', compact('products', 'nextInvoice'));
+        return view('sales.create', compact('products', 'productsData', 'nextInvoice'));
     }
 
     public function store(Request $request)
@@ -51,7 +60,8 @@ class SaleController extends Controller
             'paid_amount'       => 'required|numeric|min:0',
         ]);
 
-        DB::transaction(function () use ($validated) {
+        try {
+            DB::transaction(function () use ($validated) {
             $total = 0;
 
             // Validasi stok
@@ -99,10 +109,14 @@ class SaleController extends Controller
                 'paid_amount'   => $paid,
                 'change_amount' => $change,
             ]);
-        });
+            });
 
-        return redirect()->route('sales.index')
-            ->with('success', 'Transaksi penjualan berhasil disimpan!');
+            return redirect()->route('sales.index')
+                ->with('success', 'Transaksi penjualan berhasil disimpan!');
+        } catch (\Throwable $e) {
+            return back()->withInput()
+                ->with('error', $e->getMessage());
+        }
     }
 
     public function show(Sale $sale)

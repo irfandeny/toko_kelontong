@@ -92,12 +92,8 @@
 
 @push('scripts')
 <script>
-const productsData = @json($products->map(fn($p) => [
-    'id' => $p->id,
-    'name' => $p->name . ' (' . ($p->category->name ?? '-') . ')',
-    'price' => $p->selling_price,
-    'stock' => $p->stock
-]));
+// Data produk dipersiapkan di controller untuk menghindari error parsing Blade
+const productsData = @json($productsData);
 
 function formatRupiah(v){
     return 'Rp ' + Number(v).toLocaleString('id-ID');
@@ -159,7 +155,7 @@ document.getElementById('addRowBtn').addEventListener('click', ()=>{
     const tbody = document.getElementById('detailBody');
     const tr = document.createElement('tr');
     const productOptions = productsData.map(p =>
-        <option value=\"${p.id}\">${p.name} | Stok: ${p.stock}</option>
+        `<option value="${p.id}">${p.name} | Stok: ${p.stock}</option>`
     ).join('');
     tr.innerHTML = `
         <td>
